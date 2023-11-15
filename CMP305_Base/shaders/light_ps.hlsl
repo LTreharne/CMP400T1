@@ -15,6 +15,7 @@ struct InputType
 {
 	float4 position : SV_POSITION;
 	float2 tex : TEXCOORD0;
+    float3 worldcoord : TEXCOORD1;
 	float3 normal : NORMAL;
 };
 
@@ -35,7 +36,17 @@ float4 main(InputType input) : SV_TARGET
 	textureColour = texture0.Sample(sampler0, input.tex);
 	lightColour = calculateLighting(-lightDirection, input.normal, diffuseColour);
 	
-	return lightColour * textureColour;
+    if (input.worldcoord.y>1.1)
+    {
+        textureColour = float4(1, 1, 1, 1);
+    }
+    else if (input.worldcoord.y<0.8)
+    {
+        textureColour = float4(0, 0, 1, 1);
+
+    }
+	
+        return lightColour * textureColour;
 }
 
 

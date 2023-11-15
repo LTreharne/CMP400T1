@@ -15,14 +15,21 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	textureMgr->loadTexture(L"grass", L"res/grass.png");
 	textureMgr->loadTexture(L"white", L"res/DefaultDiffuse.png");
 
+	lithosphere.AddPlate(XMINT4(16, 24, 50, 30));
+
 	// Create Mesh object and shader object
 	m_Terrain = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext());
+	m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
 	shader = new LightShader(renderer->getDevice(), hwnd);
 	
+	
+
+
+
 	// Initialise light
 	light = new Light();
 	light->setDiffuseColour(1.0f, 1.0f, 1.0f, 1.0f);
-	light->setDirection(1.0f, 0.0f, 0.0f);
+	light->setDirection(1.0f, -1.0f, 0.0f);
 
 }
 
@@ -106,13 +113,35 @@ void App1::gui()
 	// Build UI
 	ImGui::Text("FPS: %.2f", timer->getFPS());
 	ImGui::Checkbox("Wireframe mode", &wireframeToggle);
+	
+	Plate pla = lithosphere.plates[0];
 
-	ImGui::SliderInt("Terrain Resolution", &terrainResolution, 2, 1024);
+	XMINT4 plateProperties = XMINT4(pla.width, pla.height, pla.xOff, pla.yOff);
+
+	if (ImGui::DragInt4("Plate 0",&plateProperties.x,1, 0,127, "%i")) {
+		lithosphere.plates[0].UpdateProperties(plateProperties);
+		lithosphere.GenerateHeightMap();
+		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
+	}
+
+	Plate pla1 = lithosphere.plates[1];
+
+	XMINT4 plateProperties1 = XMINT4(pla1.width, pla1.height, pla1.xOff, pla1.yOff);
+
+	if (ImGui::DragInt4("Plate 1", &plateProperties1.x, 1, 0, 127, "%i")) {
+		lithosphere.plates[1].UpdateProperties(plateProperties1);
+		lithosphere.GenerateHeightMap();
+		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
+	}
+
+
+	//ImGui::SliderInt("Terrain Resolution", &terrainResolution, 2, 1024);
+
 	if (ImGui::Button("Regenerate Terrain")) {
 		if (terrainResolution != m_Terrain->GetResolution()) {
 			m_Terrain->Resize(terrainResolution);
 		}
-		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext());
+		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
 	}
 
 	// Render UI

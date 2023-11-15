@@ -27,7 +27,7 @@ public:
 	* @param device context is the renderer device context
 	* @param resolution is a int for subdivision of the plane. The number of unit quad on each axis. Default is 100.
 	*/
-	PlaneMesh(ID3D11Device* device, ID3D11DeviceContext* deviceContext, int resolution = 100);
+	PlaneMesh(ID3D11Device* device, ID3D11DeviceContext* deviceContext, int resolution = 128);
 	~PlaneMesh();
 
 protected:

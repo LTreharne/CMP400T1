@@ -28,6 +28,8 @@ private:
 
 	Light* light;
 
+	Lithosphere lithosphere;
+
 	int terrainResolution = 128;
 };
 

@@ -166,12 +166,16 @@
   <ItemGroup>
     <ClCompile Include="App1.cpp" />
     <ClCompile Include="LightShader.cpp" />
+    <ClCompile Include="Lithosphere.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Plate.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App1.h" />
     <ClInclude Include="LightShader.h" />
+    <ClInclude Include="Lithosphere.h" />
+    <ClInclude Include="Plate.h" />
     <ClInclude Include="TerrainMesh.h" />
   </ItemGroup>
   <ItemGroup>
