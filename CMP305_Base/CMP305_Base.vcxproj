@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App1.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="LightShader.h" />
     <ClInclude Include="Lithosphere.h" />
     <ClInclude Include="Plate.h" />

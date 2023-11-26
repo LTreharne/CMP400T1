@@ -1,12 +1,13 @@
 
 #include "Plate.h"
 
-Plate::Plate()
+Plate::Plate(bool isOceanic)
 {
-	width = 10;
-	height = 10;
-	xOff = 10;
-	yOff = 10;
+	width = 64;
+	height = 128;
+	xOff = 0;
+	yOff = 0;
+	oceanic = isOceanic;
 	//plateHeightMap.resize(width);
 
 	//for (int i = 0; i < width; ++i) {
@@ -29,17 +30,30 @@ void Plate::GenerateHeightMap()
 	for (int i = 0; i < width; ++i)
 	{
 		for (int j = 0; j < height; ++j) {
-			plateHeightMap[i][j] = 1.f;
+			int remp = rand() % 5;
+			if (oceanic)
+				plateHeightMap[i][j] = 0.5+remp/20.f;
+			else
+				plateHeightMap[i][j] = 1+remp/20.f;
 		}
 	}
 }
 
+void Plate::Update()
+{
+	xOff += velocity.x;
+	yOff += velocity.y;
+}
+
 void Plate::UpdateProperties(XMINT4 p)
 {
-	width = p.x;
-	height = p.y;
+	if (p.x!=width||p.y!=height) {
+		
+		width = p.x;
+		height = p.y;
+		GenerateHeightMap();
+	}
 	xOff = p.z;
 	yOff = p.w;
 
-	GenerateHeightMap();
 }

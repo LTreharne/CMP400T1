@@ -36,15 +36,27 @@ float4 main(InputType input) : SV_TARGET
 	textureColour = texture0.Sample(sampler0, input.tex);
 	lightColour = calculateLighting(-lightDirection, input.normal, diffuseColour);
 	
-    if (input.worldcoord.y>1.1)
+    
+    if (abs(input.normal.x) >= 0.3f || abs(input.normal.z) >= 0.3f)
+    {
+       
+        textureColour = float4(110 / 255.f, 38 / 255.f, 14 / 255.f, 1);
+    }
+    else if (input.worldcoord.y > 1.9)
     {
         textureColour = float4(1, 1, 1, 1);
     }
-    else if (input.worldcoord.y<0.8)
+    else if (input.worldcoord.y == 0)
+    {
+        textureColour = float4(0, 0, 0, 1);
+
+    }
+    else if (input.worldcoord.y < 0.8)
     {
         textureColour = float4(0, 0, 1, 1);
 
     }
+ 
 	
         return lightColour * textureColour;
 }

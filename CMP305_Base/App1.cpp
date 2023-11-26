@@ -8,6 +8,7 @@ App1::App1()
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in, bool VSYNC, bool FULL_SCREEN)
 {
+	srand(0);
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in, VSYNC, FULL_SCREEN);
 
@@ -15,7 +16,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	textureMgr->loadTexture(L"grass", L"res/grass.png");
 	textureMgr->loadTexture(L"white", L"res/DefaultDiffuse.png");
 
-	lithosphere.AddPlate(XMINT4(16, 24, 50, 30));
+	lithosphere.AddPlate(XMINT4(64, 128, 64, 0), false);
 
 	// Create Mesh object and shader object
 	m_Terrain = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext());
@@ -123,19 +124,27 @@ void App1::gui()
 		lithosphere.GenerateHeightMap();
 		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
 	}
+	if (lithosphere.plates.size()>1) {
 
-	Plate pla1 = lithosphere.plates[1];
 
-	XMINT4 plateProperties1 = XMINT4(pla1.width, pla1.height, pla1.xOff, pla1.yOff);
+		Plate pla1 = lithosphere.plates[1];
 
-	if (ImGui::DragInt4("Plate 1", &plateProperties1.x, 1, 0, 127, "%i")) {
-		lithosphere.plates[1].UpdateProperties(plateProperties1);
-		lithosphere.GenerateHeightMap();
-		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
+		XMINT4 plateProperties1 = XMINT4(pla1.width, pla1.height, pla1.xOff, pla1.yOff);
+
+		if (ImGui::DragInt4("Plate 1", &plateProperties1.x, 1, 0, 127, "%i")) {
+			lithosphere.plates[1].UpdateProperties(plateProperties1);
+			lithosphere.GenerateHeightMap();
+			m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
+	}
 	}
 
 
 	//ImGui::SliderInt("Terrain Resolution", &terrainResolution, 2, 1024);
+
+	if (ImGui::Button("Itterate")) {
+		lithosphere.Itterate();
+		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
+	}
 
 	if (ImGui::Button("Regenerate Terrain")) {
 		if (terrainResolution != m_Terrain->GetResolution()) {
@@ -143,6 +152,7 @@ void App1::gui()
 		}
 		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
 	}
+
 
 	// Render UI
 	ImGui::Render();
