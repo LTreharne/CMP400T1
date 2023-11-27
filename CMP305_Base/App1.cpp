@@ -124,6 +124,9 @@ void App1::gui()
 		lithosphere.GenerateHeightMap();
 		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
 	}
+
+	ImGui::SliderFloat2("Plate 0 Speed", &lithosphere.plates[0].velocity.x, -sqrt(plateMaximumSpeed), sqrt(plateMaximumSpeed), "%.1f");
+
 	if (lithosphere.plates.size()>1) {
 
 
@@ -135,7 +138,9 @@ void App1::gui()
 			lithosphere.plates[1].UpdateProperties(plateProperties1);
 			lithosphere.GenerateHeightMap();
 			m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
-	}
+		}
+
+		ImGui::SliderFloat2("Plate 1 Speed", &lithosphere.plates[1].velocity.x, -sqrt(plateMaximumSpeed), sqrt(plateMaximumSpeed), "%.1f");
 	}
 
 

@@ -78,7 +78,11 @@ void Lithosphere::CollisionCheck()
 		for (int j = 0; j < p2.height; ++j) {
 			float d = std::abs(p1.xOff + p1.width - (i + p2.xOff))/10.f;//distance to subduction point (CHANGE LATER TO ARBRITRATY AXIS)
 			float distUplift = -7*d*d*d + d*d + d + 0.8;
-			plates[1].plateHeightMap[i][j] += baseUplift*max(distUplift,0);
+
+			XMFLOAT2 relativeSpeed = XMFLOAT2(plates[0].velocity.x - plates[1].velocity.x, plates[0].velocity.y - plates[1].velocity.y);
+			float velocityFactor = sqrt(relativeSpeed.x * relativeSpeed.x + relativeSpeed.y * relativeSpeed.y) / plateMaximumSpeed;
+
+			plates[1].plateHeightMap[i][j] += baseUplift*max(distUplift,0)*velocityFactor;
 		}
 	}
 

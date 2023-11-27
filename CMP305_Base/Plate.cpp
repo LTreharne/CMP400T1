@@ -41,8 +41,8 @@ void Plate::GenerateHeightMap()
 
 void Plate::Update()
 {
-	xOff += velocity.x;
-	yOff += velocity.y;
+	/*xOff += velocity.x;
+	yOff += velocity.y;*/
 }
 
 void Plate::UpdateProperties(XMINT4 p)

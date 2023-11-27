@@ -1,2 +1,9 @@
-﻿  compilation object save succeeded; see D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\light_ps.cso
+﻿  Plate.cpp
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Plate.cpp(35,31): warning C4244: '=': conversion from 'double' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=float
+          ]
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Plate.cpp(56,10): warning C4244: '=': conversion from 'int32_t' to 'float', possible loss of data
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Plate.cpp(57,10): warning C4244: '=': conversion from 'int32_t' to 'float', possible loss of data
   CMP305_Base.vcxproj -> D:\Users\LEIGH\Documents\GitHub\CMP400T1\x64\Debug\CMP305_Base.exe
