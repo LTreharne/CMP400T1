@@ -21,20 +21,27 @@ void Plate::GenerateHeightMap()
 {
 
 	plateHeightMap.resize(width);
+	IsPartOfPlate.resize(width);
 
 	for (int i = 0; i < width; ++i) {
 		plateHeightMap[i].resize(height);
+		IsPartOfPlate[i].resize(height);
 	}
-
+	
 
 	for (int i = 0; i < width; ++i)
 	{
 		for (int j = 0; j < height; ++j) {
+			
+			IsPartOfPlate[i][j] = (i + j > 10);
+
+
 			int remp = rand() % 5;
 			if (oceanic)
 				plateHeightMap[i][j] = 0.5+remp/20.f;
 			else
 				plateHeightMap[i][j] = 1+remp/20.f;
+
 		}
 	}
 }

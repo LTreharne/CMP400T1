@@ -16,8 +16,11 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	textureMgr->loadTexture(L"grass", L"res/grass.png");
 	textureMgr->loadTexture(L"white", L"res/DefaultDiffuse.png");
 
-	lithosphere.AddPlate(XMINT4(64, 128, 64, 0), false);
-
+	lithosphere.AddPlate(XMINT4(40, 40, 10, 30), false);
+	/*lithosphere.AddPlate(XMINT4(40, 40, 70, 30), true);
+	lithosphere.AddPlate(XMINT4(40, 40, 40, 0), false);*/
+	lithosphere.AddPlate(XMINT4(40, 40, 40, 60), true);
+	//lithosphere.AddHotSpot(XMFLOAT4(20.3, 40.8, 8, 0.5), XMFLOAT2(0.25,0.25));
 	// Create Mesh object and shader object
 	m_Terrain = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext());
 	m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
@@ -115,6 +118,22 @@ void App1::gui()
 	ImGui::Text("FPS: %.2f", timer->getFPS());
 	ImGui::Checkbox("Wireframe mode", &wireframeToggle);
 	
+	/*std::vector<XMINT4> platePropertyArray;
+	for (int i = 0; i < lithosphere.plates.size();++i) {
+		Plate plate = lithosphere.plates[i];
+		platePropertyArray.push_back(XMINT4(plate.width, plate.height, plate.xOff, plate.yOff));
+
+
+
+		if (ImGui::DragInt4("Plate 0", &platePropertyArray[i].x, 1, 0, 127, "%i")) {
+			lithosphere.plates[i].UpdateProperties(platePropertyArray[i]);
+			lithosphere.GenerateHeightMap();
+			m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
+		}
+
+	}*/
+
+
 	Plate pla = lithosphere.plates[0];
 
 	XMINT4 plateProperties = XMINT4(pla.width, pla.height, pla.xOff, pla.yOff);
@@ -141,6 +160,22 @@ void App1::gui()
 		}
 
 		ImGui::SliderFloat2("Plate 1 Speed", &lithosphere.plates[1].velocity.x, -sqrt(plateMaximumSpeed), sqrt(plateMaximumSpeed), "%.1f");
+	}
+
+	if (lithosphere.plates.size() > 2) {
+
+
+		Plate pla2 = lithosphere.plates[2];
+
+		XMINT4 plateProperties2 = XMINT4(pla2.width, pla2.height, pla2.xOff, pla2.yOff);
+
+		if (ImGui::DragInt4("Plate 2", &plateProperties2.x, 1, 0, 127, "%i")) {
+			lithosphere.plates[2].UpdateProperties(plateProperties2);
+			lithosphere.GenerateHeightMap();
+			m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
+		}
+
+		ImGui::SliderFloat2("Plate 2 Speed", &lithosphere.plates[2].velocity.x, -sqrt(plateMaximumSpeed), sqrt(plateMaximumSpeed), "%.1f");
 	}
 
 
