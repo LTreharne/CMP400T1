@@ -2,8 +2,8 @@
 #include <cmath>
 Lithosphere::Lithosphere()
 {
-	width = 128;
-	height = 128;
+	width = 512;
+	height = 512;
 	lithoHeightMap.resize(width);
 
 	for (int i = 0; i < width;++i) {
@@ -37,6 +37,54 @@ void Lithosphere::GenerateHeightMap()
 			}
 		}
 	}
+}
+
+void Lithosphere::GeneratePlates(int plateCount)
+{
+
+	assert(plateCount > 0);
+
+	//resizePlates
+	plates.clear();
+	plates.resize(plateCount);
+	
+	//Generate Seeds
+	std::vector<Seed> seeds(plateCount);
+	for (int i = 0; i < seeds.size(); i++)
+	{
+		seeds[i].Init(width, height);
+	}
+	
+	//CHECK every position for closest seed
+	for (int i = 0; i < width; i++)
+	{
+		if (i==1) {
+			int testx = 12;
+		}
+		for (int j = 0; j < height; j++)
+		{
+			int minDistanceIndex = 0;
+			float minDistance = width * height;
+
+			for (int k = 0; k < seeds.size(); k++)
+			{
+				if (seeds[k].distanceToPoint(i,j)<minDistance) {
+					minDistance = seeds[k].distanceToPoint(i, j);
+					minDistanceIndex = k;
+				}
+			}
+
+			seeds[minDistanceIndex].AddToPlate(i, j);
+		}
+	}
+
+	for (int i = 0; i < plates.size(); ++i) {
+		plates[i].oceanic = (bool)(rand() % 2);
+		plates[i].UpdateProperties(seeds[i].getPlateProperties());
+		plates[i].SetIsPartofPlateMap(seeds[i].getPartofPlateMap());
+	}
+
+	GenerateHeightMap();
 }
 
 void Lithosphere::AddPlate(XMINT4 prop, bool isOceanic)

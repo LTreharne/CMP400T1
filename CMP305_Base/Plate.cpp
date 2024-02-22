@@ -17,6 +17,23 @@ Plate::Plate(bool isOceanic)
 	GenerateHeightMap();
 }
 
+
+Plate::Plate()
+{
+	width = 64;
+	height = 128;
+	xOff = 0;
+	yOff = 0;
+	oceanic = false;
+	//plateHeightMap.resize(width);
+
+	//for (int i = 0; i < width; ++i) {
+	//	plateHeightMap[i].resize(height);
+	//}
+
+	GenerateHeightMap();
+}
+
 void Plate::GenerateHeightMap()
 {
 
@@ -27,20 +44,17 @@ void Plate::GenerateHeightMap()
 		plateHeightMap[i].resize(height);
 		IsPartOfPlate[i].resize(height);
 	}
-	
+
 
 	for (int i = 0; i < width; ++i)
 	{
 		for (int j = 0; j < height; ++j) {
-			
-			IsPartOfPlate[i][j] = (i + j > 10);
-
 
 			int remp = rand() % 5;
 			if (oceanic)
-				plateHeightMap[i][j] = 0.5+remp/20.f;
+				plateHeightMap[i][j] = 0.5 + remp / 20.f;
 			else
-				plateHeightMap[i][j] = 1+remp/20.f;
+				plateHeightMap[i][j] = 1 + remp / 20.f;
 
 		}
 	}
@@ -63,4 +77,9 @@ void Plate::UpdateProperties(XMINT4 p)
 	xOff = p.z;
 	yOff = p.w;
 
+}
+
+void Plate::SetIsPartofPlateMap(std::vector<std::vector<bool>> map)
+{
+	IsPartOfPlate = map;
 }

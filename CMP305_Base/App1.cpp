@@ -8,7 +8,7 @@ App1::App1()
 
 void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeight, Input *in, bool VSYNC, bool FULL_SCREEN)
 {
-	srand(0);
+	srand(time(NULL));
 	// Call super/parent init function (required!)
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in, VSYNC, FULL_SCREEN);
 
@@ -16,18 +16,15 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	textureMgr->loadTexture(L"grass", L"res/grass.png");
 	textureMgr->loadTexture(L"white", L"res/DefaultDiffuse.png");
 
-	lithosphere.AddPlate(XMINT4(40, 40, 10, 30), false);
-	/*lithosphere.AddPlate(XMINT4(40, 40, 70, 30), true);
-	lithosphere.AddPlate(XMINT4(40, 40, 40, 0), false);*/
-	lithosphere.AddPlate(XMINT4(40, 40, 40, 60), true);
-	//lithosphere.AddHotSpot(XMFLOAT4(20.3, 40.8, 8, 0.5), XMFLOAT2(0.25,0.25));
+	lithosphere.GeneratePlates(25);
+
 	// Create Mesh object and shader object
 	m_Terrain = new TerrainMesh(renderer->getDevice(), renderer->getDeviceContext());
 	m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
 	shader = new LightShader(renderer->getDevice(), hwnd);
 	
 	
-
+	
 
 
 	// Initialise light
@@ -133,7 +130,7 @@ void App1::gui()
 
 	}*/
 
-
+	if(lithosphere.plates.size() > 0){
 	Plate pla = lithosphere.plates[0];
 
 	XMINT4 plateProperties = XMINT4(pla.width, pla.height, pla.xOff, pla.yOff);
@@ -145,7 +142,7 @@ void App1::gui()
 	}
 
 	ImGui::SliderFloat2("Plate 0 Speed", &lithosphere.plates[0].velocity.x, -sqrt(plateMaximumSpeed), sqrt(plateMaximumSpeed), "%.1f");
-
+	}
 	if (lithosphere.plates.size()>1) {
 
 

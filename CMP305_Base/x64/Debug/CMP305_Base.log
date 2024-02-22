@@ -1,47 +1,9 @@
 ﻿  App1.cpp
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(139,70): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(139,60): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(154,76): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(154,65): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(170,76): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(170,65): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
-  Lithosphere.cpp
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(27,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(28,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(139,53): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(139,62): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(139,107): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(139,116): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(145,43): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(145,67): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(145,95): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(145,119): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(150,53): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(150,73): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(150,112): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(150,134): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(155,44): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(155,70): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(155,100): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(155,125): warning C4244: 'argument': conversion from 'float' to 'unsigned __int64', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Lithosphere.cpp(218,24): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Main.cpp
-  TerrainMesh.cpp
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(56,38): warning C4101: 'indexBufferDesc': unreferenced local variable
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(57,25): warning C4101: 'vertexData': unreferenced local variable
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(57,37): warning C4101: 'indexData': unreferenced local variable
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(56,20): warning C4101: 'vertexBufferDesc': unreferenced local variable
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(238,26): warning C4305: '*=': truncation from 'double' to '_Ty'
-          with
-          [
-              _Ty=float
-          ]
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(258,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(260,26): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(261,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(274,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(275,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(276,15): warning C4101: 'rhs': unreferenced local variable
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\TerrainMesh.cpp(276,10): warning C4101: 'lhs': unreferenced local variable
-  Generating Code...
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(11,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(136,70): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(136,60): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(151,76): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(151,65): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(167,76): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(167,65): warning C4244: 'argument': conversion from 'float' to 'int32_t', possible loss of data
   CMP305_Base.vcxproj -> D:\Users\LEIGH\Documents\GitHub\CMP400T1\x64\Debug\CMP305_Base.exe

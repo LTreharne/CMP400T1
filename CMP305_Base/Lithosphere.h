@@ -6,6 +6,7 @@
 #include <windef.h>
 #include "Constants.h"
 #include "HotSpot.h"
+#include "Seed.h"
 class Lithosphere
 {
 public:
@@ -17,6 +18,7 @@ public:
 	std::vector<Plate> plates;
 	std::vector<HotSpot> hotSpots;
 	void GenerateHeightMap();
+	void GeneratePlates(int plateCount);
 
 	void AddPlate(XMINT4 prop, bool);
 	void AddHotSpot(XMFLOAT4 prop, XMFLOAT2 vel);

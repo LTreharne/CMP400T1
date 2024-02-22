@@ -4,6 +4,7 @@
 class Plate
 {
 public:
+	Plate();
 	Plate(bool isOceanic);
 	std::vector<std::vector<float>> plateHeightMap;
 	std::vector<std::vector<bool>> IsPartOfPlate;
@@ -23,5 +24,6 @@ public:
 	void GenerateHeightMap();
 	void Update();
 	void UpdateProperties(XMINT4 p);
+	void SetIsPartofPlateMap(std::vector<std::vector<bool>> map);
 };
 

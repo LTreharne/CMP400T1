@@ -170,6 +170,7 @@
     <ClCompile Include="Lithosphere.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Plate.cpp" />
+    <ClCompile Include="Seed.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +180,7 @@
     <ClInclude Include="LightShader.h" />
     <ClInclude Include="Lithosphere.h" />
     <ClInclude Include="Plate.h" />
+    <ClInclude Include="Seed.h" />
     <ClInclude Include="TerrainMesh.h" />
   </ItemGroup>
   <ItemGroup>
