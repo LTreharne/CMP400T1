@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "HotSpot.h"
 #include "Seed.h"
+#include "Vector2.h"
 class Lithosphere
 {
 public:
@@ -27,10 +28,12 @@ public:
 	void Itterate();
 
 	void CalcHotSpotUplift();
-
+	int PositiveModulus(int i, int n);
+	bool AABBCollisionCheck(Plate p1, Plate p2);
 
 	//collisions
 	void CollisionCheck(int,int);
+	std::vector<Vector2> ElasticCollision(Vector2 v1, Vector2 v2, float m1, float m2,Vector2 x1,Vector2 x2);
 	bool ShouldSwapIndicies(int p1, int p2);
 };
 

@@ -172,6 +172,7 @@
     <ClCompile Include="Plate.cpp" />
     <ClCompile Include="Seed.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
+    <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App1.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Plate.h" />
     <ClInclude Include="Seed.h" />
     <ClInclude Include="TerrainMesh.h" />
+    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DXFramework\DXFramework.vcxproj">

@@ -29,6 +29,7 @@ float4 calculateLighting(float3 lightDirection, float3 normal, float4 diffuse)
 
 float4 main(InputType input) : SV_TARGET
 {
+    input.tex *= 10;
 	float4 textureColour;
 	float4 lightColour;
 
@@ -37,16 +38,16 @@ float4 main(InputType input) : SV_TARGET
 	lightColour = calculateLighting(-lightDirection, input.normal, diffuseColour);
 	
     
-    if (abs(input.normal.x) >= 0.3f || abs(input.normal.z) >= 0.3f)
-    {
+    //if (abs(input.normal.x) >= 0.3f || abs(input.normal.z) >= 0.3f)
+    //{
        
-        textureColour = float4(110 / 255.f, 38 / 255.f, 14 / 255.f, 1);
-    }
-    else if (input.worldcoord.y > 1.9)
-    {
-        textureColour = float4(1, 1, 1, 1);
-    }
-    else if (input.worldcoord.y == 0)
+    //    textureColour = float4(110 / 255.f, 38 / 255.f, 14 / 255.f, 1);
+    //}
+    //else if (input.worldcoord.y > 1.9)
+    //{
+    //    textureColour = float4(1, 1, 1, 1);
+    //}
+    if (input.worldcoord.y == 0)
     {
         textureColour = float4(0, 0, 0, 1);
 
@@ -56,6 +57,7 @@ float4 main(InputType input) : SV_TARGET
         textureColour = float4(0, 0, 1, 1);
 
     }
+
  
 	
         return lightColour * textureColour;

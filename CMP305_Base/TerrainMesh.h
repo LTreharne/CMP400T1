@@ -18,7 +18,7 @@ struct Line
 class TerrainMesh :
 	public PlaneMesh {
 public:
-	TerrainMesh(ID3D11Device* device, ID3D11DeviceContext* deviceContext, int resolution = 512);
+	TerrainMesh(ID3D11Device* device, ID3D11DeviceContext* deviceContext, int resolution = lithoHeight);
 	~TerrainMesh();
 
 	void Resize(int newResolution);
