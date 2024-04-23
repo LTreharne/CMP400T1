@@ -16,7 +16,7 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	textureMgr->loadTexture(L"grass", L"res/grass.png");
 	textureMgr->loadTexture(L"white", L"res/DefaultDiffuse.png");
 
-	lithosphere.GeneratePlates(15);
+	lithosphere.GeneratePlates(50);
 	//lithosphere.AddHotSpot(XMFLOAT4(100, 100, 10, 0.05), XMFLOAT2(0, 0));
 	//lithosphere.AddHotSpot(XMFLOAT4(110, 122, 10, 0.1), XMFLOAT2(0, 0));
 	//lithosphere.AddHotSpot(XMFLOAT4(135, 86, 10, 0.08), XMFLOAT2(0, 0));
@@ -181,15 +181,8 @@ void App1::gui()
 	//ImGui::SliderInt("Terrain Resolution", &terrainResolution, 2, 1024);
 
 	if (ImGui::Button("Itterate")) {
-		for (int i = 0; i < 10;++i) {
+		for (int i = 0; i < 100;++i) {
 			lithosphere.Itterate();
-		}
-		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
-	}
-
-	if (ImGui::Button("Regenerate Terrain")) {
-		if (terrainResolution != m_Terrain->GetResolution()) {
-			m_Terrain->Resize(terrainResolution);
 		}
 		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
 	}

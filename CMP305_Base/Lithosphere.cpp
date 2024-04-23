@@ -4,6 +4,7 @@ Lithosphere::Lithosphere()
 {
 	width = lithoWidth;
 	height = lithoHeight;
+	itterationCount = 0;
 	lithoHeightMap.resize(width);
 
 	for (int i = 0; i < width;++i) {
@@ -39,7 +40,7 @@ void Lithosphere::GenerateHeightMap()
 void Lithosphere::GeneratePlates(int plateCount)
 {
 
-	//assert(plateCount > 0);
+	
 
 	//resizePlates
 	plates.clear();
@@ -103,29 +104,87 @@ void Lithosphere::AddHotSpot(XMFLOAT4 prop, XMFLOAT2 vel)
 
 void Lithosphere::Itterate()
 {
-	//move plates O(n)
+	//move plates 
 	for (int i = 0; i < plates.size(); ++i){
 		plates[i].Update();
 	}
 
 
-	//check for collisions between every generated plate
+	////check for collisions between every generated plate
 	for (int i = 0; i < plates.size();++i) {
 		for (int j = i+1; j < plates.size(); j++)
 		{
 			CollisionCheck(i, j);
 		}
 	}
+
+	//recalculate plate weights
 	for (int i = 0; i < plates.size(); ++i) {
 		plates[i].CalcualteWeight();
 	}
-	//HOTSPOTS
 
+	//HOTSPOTS
 	CalcHotSpotUplift();
 
 
+	//handle items that dont occour every itteration
+	itterationCount++;
+	if (itterationCount>9) {
+		//Assign blank spaces
+		AssignBlankSpace();
+		//Errosion
+		itterationCount = 0;
+	}
+
 	//O(n)
 	GenerateHeightMap();
+}
+
+void Lithosphere::AssignBlankSpace()
+{
+	std::vector<Vector2> candidates;
+	
+	int totalEmptySpace = 0;
+	do {
+
+		candidates = FindCandidates(totalEmptySpace);
+		for (int i = 0; i < candidates.size(); ++i) {
+			for (int j = 0; j < plates.size(); ++j) {
+
+				int up = max(0, candidates[i].y - 1);
+				int down = min(candidates[i].y + 1, height - 1);
+
+				int left = max(0, candidates[i].x - 1);
+				int right = min(width - 1, candidates[i].x + 1);
+
+				if (AABBCollisionCheck(XMFLOAT2(candidates[i].x, up), XMFLOAT2(1, down - up + 1), XMFLOAT2(plates[j].xOff, plates[j].yOff), XMFLOAT2(plates[j].width, plates[j].height)) ||
+					AABBCollisionCheck(XMFLOAT2(left, candidates[i].y), XMFLOAT2(right - left + 1, 1), XMFLOAT2(plates[j].xOff, plates[j].yOff), XMFLOAT2(plates[j].width, plates[j].height))) {
+					if ((plates[j].TryAssignNewCrust(candidates[i]))) {
+
+						break;
+					}
+				}
+			}
+		}
+		GenerateHeightMap();
+	} while (totalEmptySpace > 0);
+}
+
+std::vector<Vector2> Lithosphere::FindCandidates(int &space)
+{
+	space = 0;
+	std::vector<Vector2> c;
+	for (int i = 0; i < width; ++i) {
+		for (int j = 0; j < height; ++j) {
+			if (lithoHeightMap[i][j] == 0) {
+				space++;
+				if (lithoHeightMap[min(i + 1, width - 1)][j] != 0 || lithoHeightMap[max(i - 1, 0)][j] != 0 || lithoHeightMap[i][max(j - 1, 0)] != 0 || lithoHeightMap[i][min(j + 1, height - 1)] != 0) {//check cardianl neighbours and ensure within bounds				
+					c.push_back(Vector2(i,j));
+				}
+			}
+		}
+	}
+	return c;
 }
 
 void Lithosphere::CalcHotSpotUplift()
@@ -160,6 +219,13 @@ bool Lithosphere::AABBCollisionCheck(Plate p1, Plate p2)
 	int dx = PositiveModulus(p2.xOff - p1.xOff, lithoWidth);
 	int dy = PositiveModulus(p2.yOff - p1.yOff, lithoHeight);
 	return((dx<p1.width||dx+p2.width>lithoWidth)&&(dy<p1.height||dy+p2.height>lithoHeight));
+}
+
+bool Lithosphere::AABBCollisionCheck(XMFLOAT2 position, XMFLOAT2 dimentions, XMFLOAT2 targetPosition, XMFLOAT2 targetDimentions)
+{
+	int dx = PositiveModulus(targetPosition.x - position.x, lithoWidth);
+	int dy = PositiveModulus(targetPosition.y - position.y, lithoHeight);
+	return((dx<dimentions.x || dx + targetDimentions.x>lithoWidth) && (dy<dimentions.y || dy + targetDimentions.y>lithoHeight));
 }
 
 

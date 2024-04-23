@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "DXF.h"
+#include "Vector2.h"
 class Plate
 {
 public:
@@ -11,6 +12,8 @@ public:
 
 	int xOff;
 	int yOff;
+	float xpos;
+	float ypos;
 	int width;
 	int height;
 	float weight;
@@ -30,5 +33,6 @@ public:
 	void OOB();
 	void CalcualteWeight();
 	void UpdateVelocity();
+	bool TryAssignNewCrust(Vector2);
 };
 
