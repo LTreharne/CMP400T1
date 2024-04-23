@@ -1,0 +1,2 @@
+KNOWN ISSUES
+there is an unknown bug that oocasionally causes the program to crash. this bug occours infrequantly and usually if it happens happens within the first 10 or so itterations. i have never seen the bug occour after 15 itterations even after running the simulation for several hundred itterations
