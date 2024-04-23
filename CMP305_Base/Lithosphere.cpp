@@ -40,8 +40,6 @@ void Lithosphere::GenerateHeightMap()
 void Lithosphere::GeneratePlates(int plateCount)
 {
 
-	
-
 	//resizePlates
 	plates.clear();
 	plates.resize(plateCount);
@@ -56,9 +54,6 @@ void Lithosphere::GeneratePlates(int plateCount)
 	//CHECK every position for closest seed
 	for (int i = 0; i < width; i++)
 	{
-		if (i==1) {
-			int testx = 12;
-		}
 		for (int j = 0; j < height; j++)
 		{
 			int minDistanceIndex = 0;
@@ -126,12 +121,12 @@ void Lithosphere::Itterate()
 	//HOTSPOTS
 	CalcHotSpotUplift();
 
-
 	//handle items that dont occour every itteration
 	itterationCount++;
 	if (itterationCount>9) {
 		//Assign blank spaces
-		AssignBlankSpace();
+		AssignBlankSpace();	
+		
 		//Errosion
 		itterationCount = 0;
 	}
@@ -157,8 +152,10 @@ void Lithosphere::AssignBlankSpace()
 				int left = max(0, candidates[i].x - 1);
 				int right = min(width - 1, candidates[i].x + 1);
 
+				//cehck connecting cells for overlap with plate
 				if (AABBCollisionCheck(XMFLOAT2(candidates[i].x, up), XMFLOAT2(1, down - up + 1), XMFLOAT2(plates[j].xOff, plates[j].yOff), XMFLOAT2(plates[j].width, plates[j].height)) ||
 					AABBCollisionCheck(XMFLOAT2(left, candidates[i].y), XMFLOAT2(right - left + 1, 1), XMFLOAT2(plates[j].xOff, plates[j].yOff), XMFLOAT2(plates[j].width, plates[j].height))) {
+					//if overlap exists checks plates exact shape to see if its neighbouring and then assigns it to that plate of so
 					if ((plates[j].TryAssignNewCrust(candidates[i]))) {
 
 						break;
@@ -167,10 +164,10 @@ void Lithosphere::AssignBlankSpace()
 			}
 		}
 		GenerateHeightMap();
-	} while (totalEmptySpace > 0);
+	} while (totalEmptySpace > 0);//keep filling spots till no empty space remains
 }
 
-std::vector<Vector2> Lithosphere::FindCandidates(int &space)
+std::vector<Vector2> Lithosphere::FindCandidates(int &space)//finds all spots where heightmap is empty but neighbouring cell is full (neightbous must share edge not just corner aka manhattan)
 {
 	space = 0;
 	std::vector<Vector2> c;
@@ -187,7 +184,7 @@ std::vector<Vector2> Lithosphere::FindCandidates(int &space)
 	return c;
 }
 
-void Lithosphere::CalcHotSpotUplift()
+void Lithosphere::CalcHotSpotUplift()//adjusts plate heightmaps based off hotspots
 {
 	for (int i = 0; i < hotSpots.size(); i++)
 	{
@@ -209,19 +206,19 @@ void Lithosphere::CalcHotSpotUplift()
 	}
 }
 
-int Lithosphere::PositiveModulus(int i, int n)
+int Lithosphere::PositiveModulus(int i, int n)//will return a positive number for modulus of a negative (not default in c++)
 {
 	return (i % n + n) % n;
 }
 
-bool Lithosphere::AABBCollisionCheck(Plate p1, Plate p2)
+bool Lithosphere::AABBCollisionCheck(Plate p1, Plate p2)//alterd AABB formula that allows for plates to wrap around and still detect collisions
 {
 	int dx = PositiveModulus(p2.xOff - p1.xOff, lithoWidth);
 	int dy = PositiveModulus(p2.yOff - p1.yOff, lithoHeight);
 	return((dx<p1.width||dx+p2.width>lithoWidth)&&(dy<p1.height||dy+p2.height>lithoHeight));
 }
 
-bool Lithosphere::AABBCollisionCheck(XMFLOAT2 position, XMFLOAT2 dimentions, XMFLOAT2 targetPosition, XMFLOAT2 targetDimentions)
+bool Lithosphere::AABBCollisionCheck(XMFLOAT2 position, XMFLOAT2 dimentions, XMFLOAT2 targetPosition, XMFLOAT2 targetDimentions)//overload
 {
 	int dx = PositiveModulus(targetPosition.x - position.x, lithoWidth);
 	int dy = PositiveModulus(targetPosition.y - position.y, lithoHeight);
@@ -252,6 +249,7 @@ void Lithosphere::CollisionCheck(int index1, int index2)
 			int XcatchScenario4P2 = 0;
 			int YCatchScenario4P1 = 0;
 			int YcatchScenario4P2 = 0;
+
 			//catch scenario 4
 			if ((p1.xOff + p1.width > lithoWidth) && (p2.xOff + p2.width < p1.xOff))
 				XCatchScenario4P1 = lithoWidth;
@@ -263,8 +261,6 @@ void Lithosphere::CollisionCheck(int index1, int index2)
 			else if ((p2.yOff + p2.height > lithoHeight) && (p1.yOff + p1.height < p2.yOff))
 				YcatchScenario4P2 = lithoHeight;
 			
-
-			//catch scenario 6
 
 			//COLLISION DECECTION 2 plates expand to loop overall plates 
 			left = max(p1.xOff-XCatchScenario4P1, p2.xOff-XcatchScenario4P2);
@@ -386,7 +382,7 @@ void Lithosphere::CollisionCheck(int index1, int index2)
 
 }
 
-std::vector<Vector2> Lithosphere::ElasticCollision(Vector2 v1, Vector2 v2, float m1, float m2, Vector2 x1, Vector2 x2)
+std::vector<Vector2> Lithosphere::ElasticCollision(Vector2 v1, Vector2 v2, float m1, float m2, Vector2 x1, Vector2 x2)//update velocities of plates based off weights according to newtonian laws
 {
 	std::vector<Vector2> changes;
 	Vector2 v1After = (x1 - x2) * (((-2 * m2) / (m1 + m2)) * (((v1 - v2).Dot(x1 - x2))/ pow(((x1 - x2).Mag()), 2)));

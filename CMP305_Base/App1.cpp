@@ -1,5 +1,6 @@
 #include "App1.h"
-
+#include <stdio.h>
+#include <stdlib.h>
 App1::App1()
 {
 	m_Terrain = nullptr;
@@ -13,10 +14,13 @@ void App1::init(HINSTANCE hinstance, HWND hwnd, int screenWidth, int screenHeigh
 	BaseApplication::init(hinstance, hwnd, screenWidth, screenHeight, in, VSYNC, FULL_SCREEN);
 
 	// Load textures
-	textureMgr->loadTexture(L"grass", L"res/grass.png");
+	textureMgr->loadTexture(L"grass", L"res/Grass.png");
+	textureMgr->loadTexture(L"snow", L"res/snow.png");
+	textureMgr->loadTexture(L"rock", L"res/rocks.png");
+	textureMgr->loadTexture(L"water", L"res/water.png");
 	textureMgr->loadTexture(L"white", L"res/DefaultDiffuse.png");
 
-	lithosphere.GeneratePlates(50);
+	lithosphere.GeneratePlates(25);
 	//lithosphere.AddHotSpot(XMFLOAT4(100, 100, 10, 0.05), XMFLOAT2(0, 0));
 	//lithosphere.AddHotSpot(XMFLOAT4(110, 122, 10, 0.1), XMFLOAT2(0, 0));
 	//lithosphere.AddHotSpot(XMFLOAT4(135, 86, 10, 0.08), XMFLOAT2(0, 0));
@@ -94,7 +98,7 @@ bool App1::render()
 
 	// Send geometry data, set shader parameters, render object with shader
 	m_Terrain->sendData(renderer->getDeviceContext());
-	shader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture(L"grass"), light);
+	shader->setShaderParameters(renderer->getDeviceContext(), worldMatrix, viewMatrix, projectionMatrix, textureMgr->getTexture(L"grass"), textureMgr->getTexture(L"water"), textureMgr->getTexture(L"rock"), textureMgr->getTexture(L"snow"), light);
 	shader->render(renderer->getDeviceContext(), m_Terrain->getIndexCount());
 
 	// Render GUI
@@ -117,20 +121,6 @@ void App1::gui()
 	ImGui::Text("FPS: %.2f", timer->getFPS());
 	ImGui::Checkbox("Wireframe mode", &wireframeToggle);
 	
-	/*std::vector<XMINT4> platePropertyArray;
-	for (int i = 0; i < lithosphere.plates.size();++i) {
-		Plate plate = lithosphere.plates[i];
-		platePropertyArray.push_back(XMINT4(plate.width, plate.height, plate.xOff, plate.yOff));
-
-
-
-		if (ImGui::DragInt4("Plate 0", &platePropertyArray[i].x, 1, 0, 127, "%i")) {
-			lithosphere.plates[i].UpdateProperties(platePropertyArray[i]);
-			lithosphere.GenerateHeightMap();
-			m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
-		}
-
-	}*/
 
 	if(lithosphere.plates.size() > 0){
 	Plate pla = lithosphere.plates[0];
@@ -186,10 +176,47 @@ void App1::gui()
 		}
 		m_Terrain->Regenerate(renderer->getDevice(), renderer->getDeviceContext(), lithosphere.lithoHeightMap);
 	}
+	if (ImGui::Button("Export")) {
+		exportHeightmap();
+	}
 
 
 	// Render UI
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+}
+
+void App1::exportHeightmap()
+{
+	FILE* ImageFile;
+	float maxHeight = 0;
+	for (int i = 0; i < lithoWidth; ++i) {
+		for (int j = 0; j < lithoWidth; ++j) {
+			maxHeight = max(maxHeight, lithosphere.lithoHeightMap[i][j]);
+		}
+	}
+
+
+	int pixelColour, height = lithoHeight, width = lithoWidth;
+
+	ImageFile = fopen("image.pgm", "wb");
+	if (ImageFile == NULL) {
+		perror("ERROR: Cannot open output file");
+		exit(EXIT_FAILURE);
+	}
+
+	fprintf(ImageFile, "P5\n");           // P5 filetype
+	fprintf(ImageFile, "%d %d\n", width, height);   // dimensions
+	fprintf(ImageFile, "255\n");          // Max pixel
+
+	/* Now write a greyscale ramp */
+	for (int i = 0; i < height; ++i) {
+		for (int j = 0; j < width; ++j) {
+			pixelColour = (lithosphere.lithoHeightMap[j][i]/maxHeight)*256;
+			fputc(pixelColour, ImageFile);
+		}
+	}
+
+	fclose(ImageFile);
 }
 

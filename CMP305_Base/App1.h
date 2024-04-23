@@ -21,6 +21,7 @@ public:
 protected:
 	bool render();
 	void gui();
+	void exportHeightmap();
 
 private:
 	LightShader* shader;

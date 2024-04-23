@@ -2,6 +2,9 @@
 // Calculate diffuse lighting for a single directional light (also texturing)
 
 Texture2D texture0 : register(t0);
+Texture2D Water : register(t1);
+Texture2D Rock : register(t2);
+Texture2D Snow : register(t3);
 SamplerState sampler0 : register(s0);
 
 cbuffer LightBuffer : register(b0)
@@ -38,23 +41,23 @@ float4 main(InputType input) : SV_TARGET
 	lightColour = calculateLighting(-lightDirection, input.normal, diffuseColour);
 	
     
-    //if (abs(input.normal.x) >= 0.3f || abs(input.normal.z) >= 0.3f)
-    //{
+    if (abs(input.normal.x) >= 0.3f || abs(input.normal.z) >= 0.3f)
+    {
        
-    //    textureColour = float4(110 / 255.f, 38 / 255.f, 14 / 255.f, 1);
-    //}
-    //else if (input.worldcoord.y > 1.9)
-    //{
-    //    textureColour = float4(1, 1, 1, 1);
-    //}
+        textureColour = Rock.Sample(sampler0, input.tex); //stone
+    }
+    else if (input.worldcoord.y > 3.5)
+    {
+        textureColour = Snow.Sample(sampler0, input.tex); //snow
+    }
     if (input.worldcoord.y == 0)
     {
-        textureColour = float4(0, 0, 0, 1);
+        textureColour = float4(0, 0, 0, 1);//void
 
     }
     else if (input.worldcoord.y < 0.8)
     {
-        textureColour = float4(0, 0, 1, 1);
+        textureColour  = Water.Sample(sampler0, input.tex);; //water
 
     }
 

@@ -85,7 +85,7 @@ void LightShader::initShader(const wchar_t* vsFilename, const wchar_t* psFilenam
 }
 
 
-void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, Light* light)
+void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const XMMATRIX &worldMatrix, const XMMATRIX &viewMatrix, const XMMATRIX &projectionMatrix, ID3D11ShaderResourceView* texture, ID3D11ShaderResourceView* water, ID3D11ShaderResourceView* rock, ID3D11ShaderResourceView* snow, Light* light)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -119,5 +119,8 @@ void LightShader::setShaderParameters(ID3D11DeviceContext* deviceContext, const 
 
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 1, &texture);
+	deviceContext->PSSetShaderResources(1, 1, &water);
+	deviceContext->PSSetShaderResources(2, 1, &rock);
+	deviceContext->PSSetShaderResources(3, 1, &snow);
 	deviceContext->PSSetSamplers(0, 1, &sampleState);
 }

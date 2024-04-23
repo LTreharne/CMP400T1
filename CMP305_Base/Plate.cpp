@@ -107,7 +107,7 @@ void Plate::SetIsPartofPlateMap(std::vector<std::vector<bool>> map)
 	IsPartOfPlate = map;
 }
 
-void Plate::OOB()
+void Plate::OOB()//ensures plates dont go out of bounds
 {
 		if (xOff < 0) {
 			xpos += lithoWidth;
@@ -195,7 +195,7 @@ bool Plate::TryAssignNewCrust(Vector2 position)
 
 		float remp;
 		if (oceanic)
-			remp= 0.5 ;
+			remp = 0.5;
 		else
 			remp = 1;
 
@@ -253,11 +253,6 @@ bool Plate::TryAssignNewCrust(Vector2 position)
 				OOB();
 			}
 
-
-
-
-			//std::vector<std::vector<float>> HMnew;
-			//std::vector<std::vector<bool>> PMNew;
 		}
 	}
 
