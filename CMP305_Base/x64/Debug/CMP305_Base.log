@@ -1,9 +1,15 @@
 ﻿  App1.cpp
 D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\Constants.h(6,38): warning C4305: 'initializing': truncation from 'double' to 'float'
 D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(12,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(215,62): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(24,51): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(25,51): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(26,51): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\Users\LEIGH\Documents\GitHub\CMP400T1\CMP305_Base\App1.cpp(168,62): warning C4244: '=': conversion from '_Ty' to 'int', possible loss of data
           with
           [
               _Ty=float
           ]
+DXFramework.lib(DDSTextureLoader.obj) : warning LNK4099: PDB 'DirectXTK.pdb' was not found with 'DXFramework.lib(DDSTextureLoader.obj)' or at 'D:\Users\LEIGH\Documents\GitHub\CMP400T1\x64\Debug\DirectXTK.pdb'; linking object as if no debug info
+DXFramework.lib(WICTextureLoader.obj) : warning LNK4099: PDB 'DirectXTK.pdb' was not found with 'DXFramework.lib(WICTextureLoader.obj)' or at 'D:\Users\LEIGH\Documents\GitHub\CMP400T1\x64\Debug\DirectXTK.pdb'; linking object as if no debug info
+DXFramework.lib(pch.obj) : warning LNK4099: PDB 'DirectXTK.pdb' was not found with 'DXFramework.lib(pch.obj)' or at 'D:\Users\LEIGH\Documents\GitHub\CMP400T1\x64\Debug\DirectXTK.pdb'; linking object as if no debug info
   CMP305_Base.vcxproj -> D:\Users\LEIGH\Documents\GitHub\CMP400T1\x64\Debug\CMP305_Base.exe

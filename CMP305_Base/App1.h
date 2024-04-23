@@ -30,7 +30,7 @@ private:
 	Light* light;
 
 	Lithosphere lithosphere;
-
+	int NumberofItterations;
 	int terrainResolution = 128;
 };
 
